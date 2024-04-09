@@ -1,4 +1,10 @@
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 .start-screen {
+  position: relative;
   background-color: #404040;
   width: 100vw;
   height: 100vh;
@@ -6,8 +12,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  > div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 100px;
+    height: 10px;
+    gap: 8px;
+    padding-bottom: 100px;
+    > p:nth-child(2) {
+      font-size: 40px;
+    }
+  }
   > img {
-    height: 80vh;
+    height: 100vh;
+    width: auto;
+  }
+}
+
+.start-label-box {
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  > img {
+    width: 30vw;
+    height: auto;
+    padding-top: 400px;
+    padding-left: 48px;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(1.2);
+    }
   }
 }

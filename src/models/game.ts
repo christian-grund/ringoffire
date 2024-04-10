@@ -1,6 +1,6 @@
 // leeres JSON-Object
 export class Game {
-  public players: string[] = [];
+  public players: string[] = ['Verena', 'Tim', 'Christian'];
   public stack: string[] = [];
   public playedCards: string[] = [];
   public currentPlayer: number = 0;

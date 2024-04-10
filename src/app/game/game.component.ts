@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GameInfoComponent } from '../game-info/game-info.component';
 
 @Component({
   selector: 'app-game',
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    GameInfoComponent,
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss',

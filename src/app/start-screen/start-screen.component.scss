@@ -22,8 +22,8 @@ p {
     flex-direction: column;
     color: white;
     font-size: 100px;
-    height: 10px;
-    gap: 8px;
+    // height: 500px;
+    gap: 68px;
     padding-bottom: 100px;
     > p:nth-child(2) {
       font-size: 40px;
@@ -43,10 +43,9 @@ p {
   display: flex;
   justify-content: center;
   > img {
-    width: 30vw;
+    width: 350px;
     height: auto;
-    padding-top: 400px;
-    padding-left: 48px;
+    margin-top: 400px;
     &:hover {
       cursor: pointer;
       filter: brightness(1.2);

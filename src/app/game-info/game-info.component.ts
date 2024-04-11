@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-game-info',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MatIconModule],
   templateUrl: './game-info.component.html',
   styleUrl: './game-info.component.scss',
 })
@@ -38,9 +39,17 @@ export class GameInfoComponent implements OnChanges {
       description:
         'Pick a mate. Your mate must always drink when you drink and the other way around.',
     },
-    { title: 'Thumbmaster', description: '' },
+    {
+      title: 'Thumbmaster',
+      description:
+        'The player who drew the card must put their thumb on the table at a chosen time (before the next five gets picked though, or they lose the right). The last person to put their thumb on the table must drink.',
+    },
     { title: 'Men', description: 'All men drink.' },
-    { title: 'Quizmaster', description: '' },
+    {
+      title: 'Question master',
+      description:
+        'You become the question master, and if anybody answers a question asked by you (the player who drew the card), they have to drink. This applies to ANY question.',
+    },
     {
       title: 'Never have i ever...',
       description:

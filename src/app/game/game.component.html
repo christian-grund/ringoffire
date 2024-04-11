@@ -12,14 +12,14 @@
     <img
       [ngStyle]="{ 'right.px': i * 5 }"
       *ngFor="let c of [0, 1, 2, 3]; let i = index"
-      src="/assets/img/cards/card_cover.png"
+      src="./assets/img/cards/card_cover.png"
       alt=""
     />
     <img
       (click)="takeCard()"
       class="top-card"
       style="right: 25px"
-      src="/assets/img/cards/card_cover.png"
+      src="./assets/img/cards/card_cover.png"
       alt=""
     />
 
@@ -27,7 +27,7 @@
     <img
       *ngFor="let card of game.playedCards"
       class="played-card"
-      src="/assets/img/cards/{{ card }}.png"
+      src="./assets/img/cards/{{ card }}.png"
       alt=""
     />
 
@@ -37,7 +37,7 @@
       *ngIf="pickCardAnimation"
       class="pick-card"
       style="right: 25px"
-      src="/assets/img/cards/{{ currentCard }}.png"
+      src="./assets/img/cards/{{ currentCard }}.png"
       alt=""
     />
   </div>
@@ -46,5 +46,5 @@
 <app-game-info [card]="currentCard" class="pin-bottom"></app-game-info>
 
 <button mat-fab color="primary" (click)="openDialog()" class="btn-add">
-  <mat-icon>"add"</mat-icon>
+  <mat-icon>add</mat-icon>
 </button>

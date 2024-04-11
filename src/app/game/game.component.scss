@@ -7,7 +7,7 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  background-image: url("/assets/img/board.jpg");
+  background-image: url("./../../assets/img/board.jpg");
   background-repeat: no-repeat;
   background-position: centers;
   background-size: cover;
@@ -60,12 +60,12 @@
 .btn-add {
   position: absolute;
   right: 32px;
-  bottom: 32px;
+  bottom: 46px;
 }
 
 .pin-bottom {
   position: absolute;
   bottom: 32px;
-  left: 100px;
-  right: 100px;
+  left: 120px;
+  right: 120px;
 }

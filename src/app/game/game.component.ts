@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
+import { Firestore } from '@angular/fire/firestore';
+import { FirebaseService } from '../firebase-service/firebase.service';
 
 @Component({
   selector: 'app-game',
@@ -29,10 +31,21 @@ export class GameComponent {
   currentCard: string = '';
   game: Game = new Game();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private firebaseService: FirebaseService
+  ) {}
 
   ngOnInit(): void {
     this.newGame();
+    this.firebaseService.addDoc();
+
+    // collection(this.firestore)
+    // this.firebaseService.firestore.collection('games');
+    // this.firebaseService.firestore
+    //   .collection('games')
+    //   .valueChanges()
+    //   .subscribe((game = this.game) => console.log('Game update:', game));
   }
 
   newGame() {

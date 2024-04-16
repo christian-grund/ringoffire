@@ -8,8 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc } from '@angular/fire/firestore';
 import { FirebaseService } from '../firebase-service/firebase.service';
+import { ActivatedRoute } from '@angular/router';
+import { onSnapshot } from 'firebase/firestore';
+import { Unsubscribe } from 'firebase/app-check';
 
 @Component({
   selector: 'app-game',
@@ -31,21 +34,49 @@ export class GameComponent {
   pickCardAnimation = false;
   currentCard: string = '';
   game: Game = new Game();
+  unsubGameDescription: any;
 
   constructor(
     public dialog: MatDialog,
-    private firebaseService: FirebaseService
+    private firebaseService: FirebaseService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.newGame();
+    this.unsubGameDescription = this.gameDescription();
+  }
+
+  gameDescription() {
+    this.route.params.subscribe((params) => {
+      const gameId = params['id'];
+      this.unsubGameDescription = onSnapshot(
+        doc(collection(this.firestore, 'games'), gameId),
+        (snapshot) => {
+          console.log('Game update onSnapshot:', snapshot.data());
+          const game = snapshot.data();
+          if (game) {
+            this.game.currentPlayer = game['currentPlayer'];
+            this.game.playedCards = game['playedCards'];
+            this.game.players = game['players'];
+            this.game.stack = game['stack'];
+          }
+        }
+      );
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.unsubGameDescription) {
+      this.unsubGameDescription.unsubscribe();
+    }
   }
 
   newGame() {
     this.game = new Game();
-    console.log('Game:', this.game);
-    const gameData = this.game.toJson();
-    addDoc(collection(this.firestore, 'games'), gameData);
+    // console.log('Game:', this.game);
+    // const gameData = this.game.toJson();
+    // addDoc(collection(this.firestore, 'games'), gameData);
   }
 
   takeCard() {

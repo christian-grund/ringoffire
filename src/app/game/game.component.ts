@@ -11,7 +11,7 @@ import { GameInfoComponent } from '../game-info/game-info.component';
 import { Firestore, addDoc, collection, doc } from '@angular/fire/firestore';
 import { FirebaseService } from '../firebase-service/firebase.service';
 import { ActivatedRoute } from '@angular/router';
-import { onSnapshot } from 'firebase/firestore';
+import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { Unsubscribe } from 'firebase/app-check';
 
 @Component({
@@ -35,6 +35,7 @@ export class GameComponent {
   currentCard: string = '';
   game: Game = new Game();
   unsubGameDescription: any;
+  gameId!: string;
 
   constructor(
     public dialog: MatDialog,
@@ -49,9 +50,10 @@ export class GameComponent {
 
   gameDescription() {
     this.route.params.subscribe((params) => {
-      const gameId = params['id'];
+      // const gameID = params['id'];
+      this.gameId = params['id'];
       this.unsubGameDescription = onSnapshot(
-        doc(collection(this.firestore, 'games'), gameId),
+        doc(collection(this.firestore, 'games'), this.gameId),
         (snapshot) => {
           console.log('Game update onSnapshot:', snapshot.data());
           const game = snapshot.data();
@@ -81,6 +83,7 @@ export class GameComponent {
       if (!this.pickCardAnimation) {
         this.currentCard = this.game.stack.pop()!;
         this.pickCardAnimation = true;
+        this.saveGame();
 
         this.game.currentPlayer++;
         this.game.currentPlayer =
@@ -89,6 +92,7 @@ export class GameComponent {
         setTimeout(() => {
           this.game.playedCards.push(this.currentCard);
           this.pickCardAnimation = false;
+          this.saveGame();
         }, 1000);
       }
     }
@@ -100,7 +104,16 @@ export class GameComponent {
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.saveGame();
       }
     });
+  }
+
+  saveGame() {
+    // const gameId = params['id'];
+    updateDoc(
+      doc(collection(this.firestore, 'games'), this.gameId),
+      this.game.toJson()
+    );
   }
 }

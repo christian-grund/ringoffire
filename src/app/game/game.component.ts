@@ -43,7 +43,7 @@ export class GameComponent {
   ) {}
 
   ngOnInit(): void {
-    this.newGame();
+    // this.newGame();
     this.unsubGameDescription = this.gameDescription();
   }
 
@@ -74,9 +74,6 @@ export class GameComponent {
 
   newGame() {
     this.game = new Game();
-    // console.log('Game:', this.game);
-    // const gameData = this.game.toJson();
-    // addDoc(collection(this.firestore, 'games'), gameData);
   }
 
   takeCard() {

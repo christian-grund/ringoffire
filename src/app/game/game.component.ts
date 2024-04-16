@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from '../player/player.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { FirebaseService } from '../firebase-service/firebase.service';
 
 @Component({
@@ -27,6 +27,7 @@ import { FirebaseService } from '../firebase-service/firebase.service';
   styleUrl: './game.component.scss',
 })
 export class GameComponent {
+  firestore: Firestore = inject(Firestore);
   pickCardAnimation = false;
   currentCard: string = '';
   game: Game = new Game();
@@ -38,19 +39,13 @@ export class GameComponent {
 
   ngOnInit(): void {
     this.newGame();
-    this.firebaseService.addDoc();
-
-    // collection(this.firestore)
-    // this.firebaseService.firestore.collection('games');
-    // this.firebaseService.firestore
-    //   .collection('games')
-    //   .valueChanges()
-    //   .subscribe((game = this.game) => console.log('Game update:', game));
   }
 
   newGame() {
     this.game = new Game();
-    console.log(this.game);
+    console.log('Game:', this.game);
+    const gameData = this.game.toJson();
+    addDoc(collection(this.firestore, 'games'), gameData);
   }
 
   takeCard() {

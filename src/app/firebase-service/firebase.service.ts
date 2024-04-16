@@ -12,17 +12,9 @@ export class FirebaseService implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    // addDoc(collection(this.firestore, 'games'), { Hallo: 'Welt' });
-    // collection(this.firestore, 'games');
-    // this.firestore
-    // collection(this.firestore, 'games')
-    // .valueChanges()
-    // .subscribe((game = this.game) => console.log('Game update:', game));
-  }
+  ngOnInit(): void {}
 
   addDoc() {
-    console.log('FirebaseService addDoc');
-    addDoc(collection(this.firestore, 'games'), { Hallo: 'Welt' });
+    // addDoc(collection(this.firestore, 'games'), { Hallo: 'Welt' });
   }
 }

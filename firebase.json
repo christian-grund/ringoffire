@@ -1,11 +1,16 @@
 {
-  "hosting": [
-    {
-      "target": "ringoffire",
-      "source": ".",
-      "frameworksBackend": {
-        "region": "europe-west1"
+  "hosting": {
+    "public": "dist/ringoffire/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
-    }
-  ]
+    ]
+  }
 }

@@ -1,7 +1,7 @@
 <app-player
   (click)="editPlayer(i)"
   *ngFor="let player of game.players; let i = index"
-  [ngStyle]="{ 'top.px': 100 + i * 90 }"
+  [ngStyle]="{ 'top.px': 50 + i * 90 }"
   [playerActive]="i == game.currentPlayer"
   [profileImage]="game.player_images[i]"
   [name]="player"

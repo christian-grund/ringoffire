@@ -5,10 +5,14 @@
   width: 300px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
+  overflow: hidden;
 
   span {
-    font-size: 32px;
+    font-size: 24px;
     margin-left: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   img {
     width: 70px;

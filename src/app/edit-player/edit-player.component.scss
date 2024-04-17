@@ -10,3 +10,16 @@
     filter: brightness(1.1);
   }
 }
+
+// .center-headline {
+//   display: flex;
+//   justify-content: center;
+// }
+
+.profile-picture-wrapper {
+  display: flex;
+}
+
+mat-button {
+  font-size: 40px !important;
+}

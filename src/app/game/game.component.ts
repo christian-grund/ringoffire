@@ -104,8 +104,15 @@ export class GameComponent {
 
     dialogRef.afterClosed().subscribe((change: string) => {
       console.log('Received change:', change);
-      this.game.player_images[playerId] = change;
-      this.saveGame();
+      if (change) {
+        if (change == 'DELETE') {
+          this.game.player_images.splice(playerId, 1);
+          this.game.players.splice(playerId, 1);
+        } else {
+          this.game.player_images[playerId] = change;
+        }
+        this.saveGame();
+      }
     });
   }
 

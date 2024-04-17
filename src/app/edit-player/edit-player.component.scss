@@ -1,0 +1,12 @@
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}

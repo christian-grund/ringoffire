@@ -89,4 +89,16 @@
   app-player-mobile {
     margin-left: 8px;
   }
+
+  @media (min-width: 720px) {
+    display: none;
+  }
+}
+
+app-player,
+app-player-mobile {
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.1);
+  }
 }

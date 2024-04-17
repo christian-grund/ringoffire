@@ -11,4 +11,5 @@ import { Component, Input } from '@angular/core';
 export class PlayerComponent {
   @Input() name: string = '';
   @Input() playerActive: boolean = false;
+  @Input() profileImage: string = 'man.png';
 }

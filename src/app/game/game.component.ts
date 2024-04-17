@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { Unsubscribe } from 'firebase/app-check';
 import { PlayerMobileComponent } from '../player-mobile/player-mobile.component';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 @Component({
   selector: 'app-game',
@@ -58,6 +59,7 @@ export class GameComponent {
             this.game.currentPlayer = game['currentPlayer'];
             this.game.playedCards = game['playedCards'];
             this.game.players = game['players'];
+            this.game.player_images = game['player_images'];
             this.game.stack = game['stack'];
             this.game.pickCardAnimation = game['pickCardAnimation'];
             this.game.currentCard = game['currentCard'];
@@ -97,12 +99,23 @@ export class GameComponent {
     }
   }
 
+  editPlayer(playerId: number) {
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+
+    dialogRef.afterClosed().subscribe((change: string) => {
+      console.log('Received change:', change);
+      this.game.player_images[playerId] = change;
+      this.saveGame();
+    });
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name: string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.game.player_images.push('man.png');
         this.saveGame();
       }
     });

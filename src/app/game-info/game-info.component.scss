@@ -1,5 +1,8 @@
 mat-card {
   height: 90px;
+  @media (max-width: 720px) {
+    min-height: 150px;
+  }
 }
 
 mat-card-title {

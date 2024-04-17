@@ -13,6 +13,7 @@ import { FirebaseService } from '../firebase-service/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
 import { Unsubscribe } from 'firebase/app-check';
+import { PlayerMobileComponent } from '../player-mobile/player-mobile.component';
 
 @Component({
   selector: 'app-game',
@@ -20,6 +21,7 @@ import { Unsubscribe } from 'firebase/app-check';
   imports: [
     CommonModule,
     PlayerComponent,
+    PlayerMobileComponent,
     DialogAddPlayerComponent,
     MatButtonModule,
     MatIconModule,
@@ -42,18 +44,15 @@ export class GameComponent {
   ) {}
 
   ngOnInit(): void {
-    // this.newGame();
     this.unsubGameDescription = this.gameDescription();
   }
 
   gameDescription() {
     this.route.params.subscribe((params) => {
-      // const gameID = params['id'];
       this.gameId = params['id'];
       this.unsubGameDescription = onSnapshot(
         doc(collection(this.firestore, 'games'), this.gameId),
         (snapshot) => {
-          console.log('Game update onSnapshot:', snapshot.data());
           const game = snapshot.data();
           if (game) {
             this.game.currentPlayer = game['currentPlayer'];

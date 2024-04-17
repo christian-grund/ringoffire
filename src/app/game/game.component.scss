@@ -102,3 +102,16 @@ app-player-mobile {
     filter: brightness(1.1);
   }
 }
+
+.gameOver {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  background-image: url("./../../assets/img/game-over.jpg");
+  background-repeat: no-repeat;
+  background-position: centers;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

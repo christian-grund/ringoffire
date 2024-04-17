@@ -37,6 +37,7 @@ export class GameComponent {
   game: Game = new Game();
   unsubGameDescription: any;
   gameId!: string;
+  gameOver = false;
 
   constructor(
     public dialog: MatDialog,
@@ -81,6 +82,7 @@ export class GameComponent {
 
   takeCard() {
     if (this.game.stack.length > 0) {
+      this.gameOver = false;
       if (!this.game.pickCardAnimation) {
         this.game.currentCard = this.game.stack.pop()!;
         this.game.pickCardAnimation = true;
@@ -96,6 +98,8 @@ export class GameComponent {
           this.saveGame();
         }, 1000);
       }
+    } else {
+      this.gameOver = true;
     }
   }
 

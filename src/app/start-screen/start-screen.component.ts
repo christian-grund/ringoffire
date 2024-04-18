@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Firestore, addDoc, collection, doc } from '@angular/fire/firestore';
 import { Game } from '../../models/game';
-import { log } from 'console';
+import { FirebaseService } from '../firebase-service/firebase.service';
 
 @Component({
   selector: 'app-start-screen',
@@ -15,16 +15,15 @@ export class StartScreenComponent {
   firestore: Firestore = inject(Firestore);
   game: Game = new Game();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService
+  ) {}
 
   newGame() {
-    // Start game
     let game = new Game();
-    const gameData = this.game.toJson();
-    addDoc(collection(this.firestore, 'games'), gameData).then(
-      (gameInfo: any) => {
-        this.router.navigateByUrl('/game/' + gameInfo.id);
-      }
-    );
+    this.firebaseService.addDoc(game).then((gameInfo: any) => {
+      this.router.navigateByUrl('/game/' + gameInfo.id);
+    });
   }
 }

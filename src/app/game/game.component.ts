@@ -8,13 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, addDoc, collection, doc } from '@angular/fire/firestore';
-import { FirebaseService } from '../firebase-service/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { onSnapshot, updateDoc } from 'firebase/firestore';
-import { Unsubscribe } from 'firebase/app-check';
 import { PlayerMobileComponent } from '../player-mobile/player-mobile.component';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { FirebaseService } from '../firebase-service/firebase.service';
 
 @Component({
   selector: 'app-game',
@@ -33,7 +31,6 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
   styleUrl: './game.component.scss',
 })
 export class GameComponent {
-  firestore: Firestore = inject(Firestore);
   game: Game = new Game();
   unsubGameDescription: any;
   gameId!: string;
@@ -41,8 +38,8 @@ export class GameComponent {
 
   constructor(
     public dialog: MatDialog,
-    private firebaseService: FirebaseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private firebaseService: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +50,7 @@ export class GameComponent {
     this.route.params.subscribe((params) => {
       this.gameId = params['id'];
       this.unsubGameDescription = onSnapshot(
-        doc(collection(this.firestore, 'games'), this.gameId),
+        this.firebaseService.getSingleDocRef('games', this.gameId),
         (snapshot) => {
           const game = snapshot.data();
           if (game) {
@@ -90,12 +87,12 @@ export class GameComponent {
         this.game.currentPlayer =
           this.game.currentPlayer % this.game.players.length;
 
-        this.saveGame();
+        this.firebaseService.saveGame(this.game, this.gameId);
 
         setTimeout(() => {
           this.game.playedCards.push(this.game.currentCard);
           this.game.pickCardAnimation = false;
-          this.saveGame();
+          this.firebaseService.saveGame(this.game, this.gameId);
         }, 1000);
       }
     } else {
@@ -115,7 +112,7 @@ export class GameComponent {
         } else {
           this.game.player_images[playerId] = change;
         }
-        this.saveGame();
+        this.firebaseService.saveGame(this.game, this.gameId);
       }
     });
   }
@@ -127,16 +124,8 @@ export class GameComponent {
       if (name && name.length > 0) {
         this.game.players.push(name);
         this.game.player_images.push('man.png');
-        this.saveGame();
+        this.firebaseService.saveGame(this.game, this.gameId);
       }
     });
-  }
-
-  saveGame() {
-    // const gameId = params['id'];
-    updateDoc(
-      doc(collection(this.firestore, 'games'), this.gameId),
-      this.game.toJson()
-    );
   }
 }

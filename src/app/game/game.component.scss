@@ -115,3 +115,10 @@ app-player-mobile {
   justify-content: center;
   align-items: center;
 }
+
+.preloadImage {
+  opacity: 0;
+  z-index: -99999;
+  height: 0;
+  width: 0;
+}
